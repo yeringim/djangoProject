@@ -56,7 +56,7 @@ ROOT_URLCONF = "mysite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ['templates'],
+        "DIRS": [BASE_DIR/'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -124,3 +124,31 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+},
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs' / 'mysite.log',
+            'formatter': 'verbose'
+},
+    },
+    'loggers': {
+        'polls': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}

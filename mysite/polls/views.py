@@ -7,6 +7,9 @@ from polls.forms import NameForm
 from django.views.generic import ListView
 from django.views.generic import DetailView
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 # def index(request):
 #     latest_question_list = Question.objects.all().order_by('-pub_date')[:5]
@@ -31,6 +34,7 @@ class DetailView(DetailView):
 
 
 def vote(request, question_id):
+    logger.debug(f"vote().question_id: {question_id}")
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
